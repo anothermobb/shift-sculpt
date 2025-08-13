@@ -61,12 +61,26 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'schedule-primary': 'hsl(var(--schedule-primary))',
+				'schedule-primary-light': 'hsl(var(--schedule-primary-light))',
+				'schedule-success': 'hsl(var(--schedule-success))',
+				'schedule-success-light': 'hsl(var(--schedule-success-light))',
+				'schedule-warning': 'hsl(var(--schedule-warning))',
+				'schedule-warning-light': 'hsl(var(--schedule-warning-light))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-card': 'var(--gradient-card)'
+			},
+			boxShadow: {
+				'card': 'var(--shadow-card)',
+				'schedule': 'var(--shadow-schedule)'
 			},
 			keyframes: {
 				'accordion-down': {
