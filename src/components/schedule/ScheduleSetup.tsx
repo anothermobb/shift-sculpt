@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Clock, Calendar, Coffee, Shield, Save, RotateCcw, Edit, Eye } from "lucide-react";
+import { Clock, Calendar, Coffee, Shield, Save, RotateCcw, Edit, Eye, Plus, Sparkles, Timer, Users } from "lucide-react";
 import { SchedulePreview } from "./SchedulePreview";
 import { ScheduleTimeline } from "./ScheduleTimeline";
 
@@ -21,6 +21,7 @@ interface ScheduleData {
 }
 
 export const ScheduleSetup = () => {
+  const [hasSchedule, setHasSchedule] = useState(false); // Simulate no schedule initially
   const [scheduleData, setScheduleData] = useState<ScheduleData>({
     workStart: "08:00",
     workEnd: "17:00",
@@ -43,7 +44,13 @@ export const ScheduleSetup = () => {
   const handleSave = () => {
     console.log("Saving schedule:", scheduleData);
     setIsEditing(false);
+    setHasSchedule(true);
     // Add your save logic here
+  };
+
+  const handleCreateFirstSchedule = () => {
+    setHasSchedule(true);
+    setIsEditing(true);
   };
 
   const handleEdit = () => {
@@ -66,6 +73,77 @@ export const ScheduleSetup = () => {
       remarks: ""
     });
   };
+
+  // Empty State Component
+  const EmptyState = () => (
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <div className="max-w-2xl mx-auto text-center space-y-8">
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-primary rounded-full blur-3xl opacity-20 animate-pulse"></div>
+          <div className="relative p-8 rounded-full bg-gradient-primary inline-block">
+            <Calendar className="h-16 w-16 text-white" />
+          </div>
+        </div>
+        
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold text-foreground">Welcome to Schedule Management</h1>
+          <p className="text-xl text-muted-foreground max-w-lg mx-auto">
+            Set up your company's work schedule to get started with time tracking and employee management.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+          <Card className="p-6 shadow-card hover:shadow-elegant transition-shadow">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-3 rounded-lg bg-schedule-primary-light">
+                <Clock className="h-8 w-8 text-schedule-primary" />
+              </div>
+              <h3 className="font-semibold">Work Hours</h3>
+              <p className="text-sm text-muted-foreground text-center">Define start and end times for your workday</p>
+            </div>
+          </Card>
+          
+          <Card className="p-6 shadow-card hover:shadow-elegant transition-shadow">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-3 rounded-lg bg-orange-100 dark:bg-orange-900/30">
+                <Coffee className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+              </div>
+              <h3 className="font-semibold">Break Times</h3>
+              <p className="text-sm text-muted-foreground text-center">Configure break schedules and duration</p>
+            </div>
+          </Card>
+          
+          <Card className="p-6 shadow-card hover:shadow-elegant transition-shadow">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="p-3 rounded-lg bg-green-100 dark:bg-green-900/30">
+                <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
+              </div>
+              <h3 className="font-semibold">Grace Periods</h3>
+              <p className="text-sm text-muted-foreground text-center">Set flexible timing allowances</p>
+            </div>
+          </Card>
+        </div>
+
+        <div className="space-y-4 pt-8">
+          <Button 
+            onClick={handleCreateFirstSchedule}
+            size="lg" 
+            className="px-8 py-3 text-lg font-semibold bg-gradient-primary hover:opacity-90 shadow-glow"
+          >
+            <Plus className="h-5 w-5 mr-2" />
+            Create Your First Schedule
+          </Button>
+          <p className="text-sm text-muted-foreground">
+            It only takes a few minutes to set up
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
+  if (!hasSchedule) {
+    return <EmptyState />;
+  }
 
   return (
     <div className="min-h-screen bg-background p-6">
